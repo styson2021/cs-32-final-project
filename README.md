@@ -1,1 +1,3 @@
-# cs-32-final-project
+# CS 32 Final Project: AI Wordle Game
+
+Our final project for CS 32 will be a Wordle game that can be played by users and provides feedback (using green, yellow, and gray letters, like the New York Times) for each guess players provide. We plan to have the game played in the Python shell, and we expect we will use various Python libraries to help format the shell output as similarly as possible to the actual Wordle game. Additionally, we plan to build an AI guesser that provides a one of the best possible guess, based on the user's previous guesses and feedback received from those guesses. Users will be able to ask for a hint, in which case the AI guesser will provide its guess to them. We are all avid Wordle players, so we are excited to get started on this project!
