@@ -12,7 +12,7 @@ Below are some sample inputs and outputs from these two functions:
 * `get_feedback_string("MOMMY", "MADAM")` --> "M-m--"
 * `get_feedback_string("LEVER", "LOWER")` --> "L--ER"
 
-* `show_feedback("MOMMY", "MADAM")` --> <span style="background-color:green">M</span>O<span style="background-color:yellow">M</span>MY
-* `show_feedback("LEVER", "LOWER")` --> <span style="background-color:green">L</span>EV<span style="background-color:green">ER</span>
+* `show_feedback("MOMMY", "MADAM")` --> <mark style="background-color: #00FF00">M</mark>O<mark style="background-color: #FFFF00">M</mark>MY
+* `show_feedback("LEVER", "LOWER")` --> <mark style="background-color: #FFFF00">L</mark>EV<mark style="background-color: #FFFF00">ER</mark>
 
 In writing this code, we have been able to narrow down the steps necessary to get from this initial prototype to our eventual final product. There are two broad portions of the project left: making the Wordle game playable and building our AI Guesser. For making the game playable, the key steps will be to build a function that takes user input for guesses and makes sure it is within the proper boundaries (5 letters, within a list of allowable English words) and then to build a function that actually runs the gameplay in the shell (5 gueses, using `show_feedback` for each guess). For the AI Guesser, we plan to begin coding a method that will allow us to take all previous feedback and narrow down the list of allowable words to an AI-generated guess. We are looking forward to getting moving on these two milestones, and we hope to have some more progress to show soon!
