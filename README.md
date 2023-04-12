@@ -14,6 +14,6 @@ Below are some sample inputs and outputs from these two functions:
 
 * `show_feedback("MOMMY", "MADAM")` --> MOMMY (background colors: green, black, yellow, black, black)
 * `show_feedback("LEVER", "LOWER")` --> LEVER (background colors: green, black, black, green, green)
-* Cannot show these colors in markdown, but they are working in the python shell using the colorama library *
+*Note: Cannot show these colors in markdown, but they are currently working in the python shell using the colorama library*
 
 In writing this code, we have been able to narrow down the steps necessary to get from this initial prototype to our eventual final product. There are two broad portions of the project left: making the Wordle game playable and building our AI Guesser. For making the game playable, the key steps will be to build a function that takes user input for guesses and makes sure it is within the proper boundaries (5 letters, within a list of allowable English words) and then to build a function that actually runs the gameplay in the shell (5 gueses, using `show_feedback` for each guess). For the AI Guesser, we plan to begin coding a method that will allow us to take all previous feedback and narrow down the list of allowable words to an AI-generated guess. We are looking forward to getting moving on these two milestones, and we hope to have some more progress to show soon!
