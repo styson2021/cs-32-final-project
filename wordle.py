@@ -1,5 +1,6 @@
 from wordle_list import get_wordle_answer_list, get_wordle_allowed_words
 from colorama import Fore, Back, Style
+import random
 
 def get_feedback_string(guess, secret_word):
     '''
@@ -49,8 +50,8 @@ def show_feedback(guess, secret_word):
     feedback_string = get_feedback_string(guess, secret_word)
     guess = guess.upper()
 
-    print(Back.WHITE+"       "+Back.RESET)
-    feedback_colors = Back.RESET+Style.DIM+"`"+Style.RESET_ALL
+    print(Back.RESET+"       "+Back.RESET)
+    feedback_colors = Back.RESET+Style.DIM+Style.RESET_ALL
     for i in range(len(guess)):
         if feedback_string[i] == '-':
             feedback_colors += (Back.BLACK+Fore.WHITE+guess[i])
@@ -58,9 +59,9 @@ def show_feedback(guess, secret_word):
             feedback_colors += (Back.YELLOW+Fore.WHITE+guess[i])
         else:
             feedback_colors += (Back.GREEN+Fore.WHITE+guess[i])
-    feedback_colors += (Back.RESET+Style.DIM+'`'+Style.RESET_ALL)
+    feedback_colors += (Back.RESET+Style.DIM+Style.RESET_ALL)
     print(feedback_colors)
-    print(Back.WHITE+"       "+Back.RESET+Fore.RESET)
+    print(Back.RESET+"       "+Back.RESET+Fore.RESET)
 
 def get_AI_hint(guesses, feedback_strings):
     '''
@@ -142,23 +143,25 @@ def get_AI_hint(guesses, feedback_strings):
         
     return ai_guess
 
-def get_user_guess():
+def get_user_guess(feedback_strs, guess_strs):
     '''
     Asks for a user's 5-letter guess and only allows them to input a five-letter word included in the allowable list of words
 
-    Args: N/A
+    Args: 
+        feedback_strs(list): Previous feedback strings for AI guess
+        guess_strs(list): Previous guesses (strs) for AI guess
     Returns:
         str: User's 5-letter, allowable guess
     '''
 
-    guess = input("Enter your guess (Type 'HINT' to use an AI-generated guess)") #ADD HINT STUFF HERE??
+    guess = input("Enter your guess (Type 'HINT' to use an AI-generated guess):\n")
 
-    while guess.upper() not in get_wordle_allowed_words() or guess.upper() != "HINT":
-        print("Your guess must be a five-letter, English word, or you must ask for a hint by typing 'HINT.'")
-        guess = input("Enter your guess (Type 'HINT' to use an AI-generated guess)")
+    while guess.upper() not in get_wordle_allowed_words() and guess.upper() != "HINT":
+        print("Your guess must be a five-letter, English word, or you must ask for a hint by typing 'HINT.'\n")
+        guess = input("Enter your guess (Type 'HINT' to use an AI-generated guess):\n")
 
     if guess.upper() == "HINT":
-        guess = get_AI_hint()
+        guess = get_AI_hint(guess_strs, feedback_strs)
     
     return guess
 
@@ -200,18 +203,23 @@ def test_AI_guesser():
 
 if __name__ == "__main__":
     secret_word = random.choice(get_wordle_answer_list())
-
     print("\nWelcome to Wordle!\n")
-
-    guess = get_user_guess()
+    feedback_strings = []
+    guesses = []
+    
+    guess = get_user_guess(feedback_strings, guesses)
     num_guesses = 1
     show_feedback(guess, secret_word)
-
+    guesses.append(guess)
+    feedback_strings.append(get_feedback_string(guess, secret_word))
+    
     while num_guesses < 6 and ('-' in get_feedback_string(guess, secret_word) or not get_feedback_string(guess, secret_word).isupper()):
-        guess = get_user_guess()
+        guess = get_user_guess(feedback_strings, guesses)
         show_feedback(guess, secret_word)
         num_guesses += 1
-
+        guesses.append(guess)
+        feedback_strings.append(get_feedback_string(guess, secret_word))
+        
     if guess.upper() == secret_word:
         print("You won in", num_guesses, "guesses!")
     else:
